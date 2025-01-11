@@ -1,0 +1,20 @@
+.history/
+
+# ENV ignore
+.env
+.env.local
+local.json
+
+# log
+log
+bin
+obj
+.vs
+.vscode
+
+*.user
+*.suo
+*.Cache
+
+# secrets
+.secrets
