@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  mysql-dev:
+    image: mysql:5.7
+    container_name: mysql-dev
+    hostname: mysql-dev
+    restart: unless-stopped
+    env_file: .db.env
+    volumes:
+      - ./_db:/var/lib/mysql
+    ports:
+      - "3308:3306"
+    networks:
+      - nginx_default
+  mysql-adminer:
+    image: adminer  
+    container_name: mysql-adminer
+    ports:
+      - 8081:8080
+    networks:
+      - nginx_default
+networks:
+  nginx_default:
+    external: true
+###
+#  How to login 
+#  System => MySql
+#  Server => mysql-dev <hostname>
+###
