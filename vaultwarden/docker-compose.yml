@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  vaultwarden:
+    container_name: vaultwarden
+    image: vaultwarden/server:latest
+    restart: unless-stopped
+    volumes:
+      - ./vw-data/:/data/
+    environment:
+      - LOGIN_RATELIMIT_MAX_BURST=10
+      - LOGIN_RATELIMIT_SECONDS=60
+      - ADMIN_RATELIMIT_MAX_BURST=10
+      - ADMIN_RATELIMIT_SECONDS=60
+      - ADMIN_TOKEN=347840ef-c492-47b9-955e-ee9f27621c0a
+      - SENDS_ALLOWED=true
+      - EMERGENCY_ACCESS_ALLOWED=true
+      - WEB_VAULT_ENABLED=true
+      - SIGNUPS_ALLOWED=false
+      - SIGNUPS_VERIFY=true
+      - SIGNUPS_VERIFY_RESEND_TIME=3600
+      - SIGNUPS_VERIFY_RESEND_LIMIT=5
+      - SIGNUPS_DOMAINS_WHITELIST=vaultwarden.dhoomketu.duckdns.org 
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_FROM=${SMTP_FROM}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_SECURITY=${SMTP_SECURITY}
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - DOMAIN=${DOMAIN}
+    networks:
+      - nginx_default
+networks:
+  nginx_default:
+    external: true
